@@ -2,6 +2,7 @@ const express = require("express");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const key = require("../../config/key").secretOrkey;
+const passport = require("passport");
 
 const router = express.Router();
 
@@ -57,6 +58,49 @@ router.post("/login", (req, res) => {
     });
   });
 });
+
+//@route    PUT api/teachers/changepassword/:id
+//@desc     account settings change password
+//@access   private
+const ValidateChangePasswordInput = require("../../validations/ChangePassword");
+router.put(
+  "/changepassword",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    const { errors, isValid } = ValidateChangePasswordInput(req.body);
+
+    //check validation
+    if (!isValid) {
+      return res.status(400).json(errors);
+    }
+
+    //check password
+    bcrypt.compare(req.body.password, req.user.password).then(isMatch => {
+      if (isMatch) {
+        User.findById(req.user.id, (err, user) => {
+          if (err) throw err;
+
+          bcrypt.genSalt(10, (err, salt) => {
+            if (err) throw err;
+
+            bcrypt.hash(req.body.password3, salt, (err, hash) => {
+              if (err) throw err;
+
+              user.password = hash;
+              user
+                .save()
+                .then(user => res.json(user))
+                .catch(err => console.log(err));
+            });
+          });
+        });
+      } else {
+        errors.password = "Password is incorrect";
+        return res.status(400).json(errors);
+      }
+    });
+  }
+);
 
 //@desc     Register new user
 router.post(

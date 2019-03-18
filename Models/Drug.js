@@ -39,6 +39,10 @@ const DrugSchema = new Schema({
     type: String,
     required: true
   },
+  status: {
+    type: Boolean,
+    default: true
+  },
   date: {
     type: Date,
     default: Date.now

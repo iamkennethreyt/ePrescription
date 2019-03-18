@@ -21,14 +21,17 @@ const PrescriptionSchema = new Schema({
         type: String,
         required: true
       },
+      notes: {
+        type: String
+      },
+      schedule: {
+        type: String
+      },
       frequency: {
         type: String
       }
     }
   ],
-  notes: {
-    type: String
-  },
   date: {
     type: Date,
     default: Date.now

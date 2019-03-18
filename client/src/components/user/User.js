@@ -36,7 +36,7 @@ class User extends Component {
               return (
                 <tr key={i}>
                   <th scope="row">{i + 1}</th>
-                  <td>{user.firstname + "" + user.lastname}</td>
+                  <td>{user.firstname + " " + user.lastname}</td>
                   <td>{user.usertype}</td>
                   <td>{user.userid}</td>
                   <td>{user.phonenumber}</td>

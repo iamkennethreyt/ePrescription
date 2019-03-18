@@ -3,9 +3,10 @@ import Modules from "../layout/Modules";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { addDrug, getDrugs } from "../../actions/drugActions";
-
+import Switch from "@material-ui/core/Switch";
 import Spinner from "../common/Spinner";
 import AddDrug from "./AddDrug";
+import Axios from "axios";
 
 class Drug extends Component {
   state = {
@@ -28,6 +29,7 @@ class Drug extends Component {
               <th scope="col">Generic Name</th>
               <th scope="col">Brand Name</th>
               <th scope="col">Dosage</th>
+              <th scope="col">Status</th>
               <th scope="col">Dosage Strength</th>
               <th scope="col">Storage</th>
               <th scope="col">Indications</th>
@@ -36,6 +38,7 @@ class Drug extends Component {
             </tr>
           </thead>
           <tbody>
+            {console.log("====", drugs)}
             {drugs.map((drug, i) => {
               return (
                 <tr key={i}>
@@ -43,8 +46,19 @@ class Drug extends Component {
                   <td>{drug.drug}</td>
                   <td>{drug.brand}</td>
                   <td>{drug.dosage}</td>
-                  <td>{drug.unit}</td>
-                  <td>{drug.indicator}</td>
+                  <td>
+                    <Switch
+                      type="checkbox"
+                      onClick={e => {
+                        Axios.put(`/api/drugs/changestatus/${drug._id}`, {
+                          status: e.target.checked
+                        });
+                      }}
+                      defaultChecked={drug.status}
+                    />
+                  </td>
+                  <td>{`${drug.quantity} ${drug.unit}`}</td>
+                  <td>{drug.storage}</td>
                   <td>{drug.indicator}</td>
                   <td>{drug.adversereaction}</td>
                   <td>{drug.contraindications}</td>

@@ -2,6 +2,7 @@ const express = require("express");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const key = require("../../config/key").secretOrkey;
+const passport = require("passport");
 
 const router = express.Router();
 
@@ -102,26 +103,46 @@ router.post("/login", (req, res) => {
     });
   });
 });
-// router.post("/", (req, res) => {
-//   const { errors, isValid } = validateInput(req.body);
 
-//   //check validation
-//   if (!isValid) {
-//     return res.status(400).json(errors);
-//   }
+const ValidateChangePasswordInput = require("../../validations/ChangePassword");
+router.put(
+  "/changepassword",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    const { errors, isValid } = ValidateChangePasswordInput(req.body);
 
-//   const newdata = new Patient({
-// firstname: req.body.firstname,
-// lastname: req.body.lastname,
-// gender: req.body.gender,
-// address: req.body.address,
-// bloodtype: req.body.bloodtype,
-// birthdate: req.body.birthdate,
-// phonenumber: req.body.phonenumber
-//   });
+    //check validation
+    if (!isValid) {
+      return res.status(400).json(errors);
+    }
 
-//   newdata.save().then(student => res.json(student));
-// });
+    //check password
+    bcrypt.compare(req.body.password, req.user.password).then(isMatch => {
+      if (isMatch) {
+        Patient.findById(req.user.id, (err, user) => {
+          if (err) throw err;
+
+          bcrypt.genSalt(10, (err, salt) => {
+            if (err) throw err;
+
+            bcrypt.hash(req.body.password3, salt, (err, hash) => {
+              if (err) throw err;
+
+              user.password = hash;
+              user
+                .save()
+                .then(user => res.json(user))
+                .catch(err => console.log(err));
+            });
+          });
+        });
+      } else {
+        errors.password = "Password is incorrect";
+        return res.status(400).json(errors);
+      }
+    });
+  }
+);
 
 //@route    GET api/patients/
 //@desc     Show all patients

@@ -7,7 +7,7 @@ import { Link, withRouter } from "react-router-dom";
 class Modules extends Component {
   render() {
     const { usertype } = this.props.auth.user;
-    console.log("aww", this.props.location.pathname);
+    console.log("aww", this.props.match.path);
     return (
       <ul className="list-group">
         <Link
@@ -69,7 +69,8 @@ class Modules extends Component {
           <Link
             to="/prescriptions"
             className={`${
-              this.props.location.pathname === "/prescriptions"
+              this.props.location.pathname === "/prescriptions" ||
+              this.props.match.path === "/prescription/:id"
                 ? "pink text-white"
                 : "pink-text"
             } list-group-item`}
@@ -77,6 +78,17 @@ class Modules extends Component {
             PRESCRIPTIONS
           </Link>
         ) : null}
+
+        <Link
+          to="/changepassword"
+          className={`${
+            this.props.location.pathname === "/changepassword"
+              ? "pink text-white"
+              : "pink-text"
+          } list-group-item `}
+        >
+          CHANGE PASSWORD
+        </Link>
       </ul>
     );
   }

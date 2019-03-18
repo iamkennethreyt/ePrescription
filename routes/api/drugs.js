@@ -48,4 +48,13 @@ router.get("/", (req, res) => {
     .catch(err => res.status(404).json(errors));
 });
 
+//change drug status
+router.put("/changestatus/:id", (req, res) => {
+  Drug.findOneAndUpdate(
+    { _id: req.params.id },
+    { $set: { status: req.body.status } },
+    { new: true }
+  ).then(user => res.json(user));
+});
+
 module.exports = router;

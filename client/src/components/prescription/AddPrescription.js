@@ -13,7 +13,8 @@ class AddPrescription extends Component {
   }
   state = {
     patient: "",
-    notes: "",
+    dateTo: "",
+    dateFrom: "",
     errors: {}
   };
 
@@ -32,6 +33,9 @@ class AddPrescription extends Component {
     const newData = {
       patient: this.state.patient,
       notes: this.state.notes,
+      dateTo: this.state.dateTo,
+      dateFrom: this.state.dateFrom,
+
       doctor: this.props.auth.user._id
     };
 
@@ -42,6 +46,8 @@ class AddPrescription extends Component {
     this.setState({
       patient: "",
       notes: "",
+      dateTo: "",
+      dateFrom: "",
       errors: {}
     });
     alert("Successfully added new prescription");
@@ -74,16 +80,6 @@ class AddPrescription extends Component {
             <div className="invalid-feedback">{errors.patient}</div>
           )}
         </div>
-
-        <TextFieldGroup
-          placeholder="Notes"
-          name="notes"
-          value={this.state.notes}
-          onChange={this.onChange}
-          error={errors.notes}
-          info="Input some notes of the patient"
-        />
-
         <button className="btn pink btn-block mt-4" type="submit">
           Save
         </button>

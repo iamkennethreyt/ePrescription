@@ -9,6 +9,7 @@ import {
 import { Link } from "react-router-dom";
 import Spinner from "../common/Spinner";
 import AddPrescription from "./AddPrescription";
+import moment from "moment";
 
 class Prescription extends Component {
   state = {
@@ -30,7 +31,11 @@ class Prescription extends Component {
             <tr>
               <th scope="col">#</th>
               <th scope="col">Patient's Name</th>
-              <th scope="col">Notes</th>
+              <th scope="col">Date</th>
+
+              {this.props.auth.user.usertype !== "Doctor" ? (
+                <th scope="col">Doctor's Name</th>
+              ) : null}
               {/* <th scope="col">Doctor's Name</th> */}
               <th scope="col">ACTION</th>
             </tr>
@@ -58,7 +63,13 @@ class Prescription extends Component {
                     <td>
                       {pres.patient.firstname + " " + pres.patient.lastname}
                     </td>
-                    <td>{pres.notes}</td>
+                    <td>{moment(pres.date).format("MMMM DD, YYYY")}</td>
+                    {this.props.auth.user.usertype !== "Doctor" ? (
+                      <td>{`Dr. ${pres.doctor.firstname} ${
+                        pres.doctor.lastname
+                      }`}</td>
+                    ) : null}
+
                     <td>
                       <Link
                         to={`/prescription/${pres._id}`}

@@ -27,8 +27,7 @@ router.post("/", (req, res) => {
         .then(() => {
           const newdata = new Prescription({
             doctor: req.body.doctor,
-            patient: req.body.patient,
-            notes: req.body.notes
+            patient: req.body.patient
           });
           newdata.save().then(prescriptions => res.json(prescriptions));
         })
@@ -110,7 +109,10 @@ router.post("/:id", (req, res) => {
           // Add user id to prescriptions array
           prescription.prescriptions.unshift({
             dispense: req.body.dispense,
-            drug: req.body.drug
+            drug: req.body.drug,
+            notes: req.body.notes,
+            schedule: req.body.schedule,
+            frequency: req.body.frequency
           });
 
           prescription.save().then(prescription => res.json(prescription));

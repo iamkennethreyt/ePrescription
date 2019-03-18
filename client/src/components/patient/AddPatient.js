@@ -122,6 +122,7 @@ class AddPatient extends Component {
           value={this.state.birthdate}
           onChange={this.onChange}
           error={errors.birthdate}
+          info="Date of Birth"
         />
 
         <SelectListGroup

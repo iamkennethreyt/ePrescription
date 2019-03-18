@@ -3,6 +3,7 @@ import Modules from "../layout/Modules";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
+import moment from "moment";
 import {
   getPrescription,
   removeDrugPrescription
@@ -43,6 +44,12 @@ class DrugPrescription extends Component {
             <span className="font-weight-normal">: {patient.bloodtype}</span>
           </p>
           <p className="font-weight-bold">
+            Date of Birth{" "}
+            <span className="font-weight-normal">
+              : {moment(patient.birthdate).format("MMMM DD, YYYY")}
+            </span>
+          </p>
+          <p className="font-weight-bold">
             Phone Number{" "}
             <span className="font-weight-normal">: {patient.phonenumber}</span>
           </p>
@@ -53,14 +60,17 @@ class DrugPrescription extends Component {
         </div>
       );
       displayTable = (
-        <table className="table">
+        <table className="table table-responsive text-nowrap">
           <thead className="pink white-text">
             <tr>
               <th scope="col">#</th>
               <th scope="col">Generic Names</th>
               <th scope="col">Brand Names</th>
-              <th scope="col">Dispense</th>
-              <th scope="col">ACTION</th>
+              <th scope="col">Quantities</th>
+              <th scope="col">Frequencies</th>
+              <th scope="col">Notes</th>
+              <th scope="col">Scheudule</th>
+              <th scope="col">ACTIONS</th>
             </tr>
           </thead>
           <tbody>
@@ -70,7 +80,12 @@ class DrugPrescription extends Component {
                   <th scope="row">{i + 1}</th>
                   <td>{pres.drug.drug}</td>
                   <td>{pres.drug.brand}</td>
-                  <td>{pres.dispense + " " + pres.drug.unit}</td>
+                  <td>{`${pres.dispense} (${pres.drug.quantity} ${
+                    pres.drug.unit
+                  })`}</td>
+                  <td>{pres.frequency}</td>
+                  <td>{pres.notes}</td>
+                  <td>{pres.schedule}</td>
                   <td>
                     <button
                       className="btn btn-outline-danger waves-effect btn-sm"

@@ -16,6 +16,8 @@ class AddPrescription extends Component {
     drug: "",
     generic: "",
     dispense: "",
+    schedule: "",
+    notes: "",
     errors: {}
   };
 
@@ -33,7 +35,10 @@ class AddPrescription extends Component {
     e.preventDefault();
     const newData = {
       drug: this.state.drug,
-      dispense: this.state.dispense
+      dispense: this.state.dispense,
+      notes: this.state.notes,
+      schedule: this.state.schedule,
+      frequency: this.state.frequency
     };
 
     this.props.addDrugPrescription(this.props.id, newData, this.onSuccess);
@@ -42,7 +47,10 @@ class AddPrescription extends Component {
   onSuccess = () => {
     this.setState({
       patient: "",
+      dispense: "",
       notes: "",
+      frequency: "",
+      schedule: "",
       errors: {}
     });
     alert("Successfully added new drug");
@@ -50,7 +58,7 @@ class AddPrescription extends Component {
   };
 
   render() {
-    const result = _.chain(this.props.drugs.drugs)
+    const result = _.chain(this.props.drugs.drugs.filter(d => d.status))
       .groupBy("drug")
       .map(function(v, i) {
         return {
@@ -71,7 +79,7 @@ class AddPrescription extends Component {
       .filter(d => d.drug === this.state.generic)
       .map((option, i) => (
         <option key={i} value={option._id}>
-          {option.brand}
+          {`${option.brand} (${option.quantity} ${option.unit})`}
         </option>
       ));
 
@@ -118,6 +126,31 @@ class AddPrescription extends Component {
           onChange={this.onChange}
           error={errors.dispense}
           info="Input some notes of the patient"
+        />
+        <TextFieldGroup
+          placeholder="Frequency"
+          name="frequency"
+          value={this.state.frequency}
+          onChange={this.onChange}
+          error={errors.frequency}
+          info="Input some frequency of the drug to the patient"
+        />
+        <TextFieldGroup
+          placeholder="Note"
+          name="notes"
+          value={this.state.notes}
+          onChange={this.onChange}
+          error={errors.notes}
+          info="Input some notes of the drug to the patient"
+        />
+
+        <TextFieldGroup
+          placeholder="Schedule"
+          name="schedule"
+          value={this.state.schedule}
+          onChange={this.onChange}
+          error={errors.schedule}
+          info="Input the schedule of the drug taken by the patient"
         />
 
         <button className="btn pink btn-block mt-4" type="submit">

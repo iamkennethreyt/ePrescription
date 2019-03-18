@@ -28,6 +28,32 @@ export const loginUser = userData => dispatch => {
     );
 };
 
+export const changePasswordUser = (userdata, history) => dispatch => {
+  axios
+    .put("/api/users/changepassword", userdata)
+    .then(() => history.push("/"))
+    .then(() => alert("SUCCESSFULLY CHANGED THE PASSWORD"))
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    );
+};
+
+export const changePasswordPatient = (userdata, history) => dispatch => {
+  axios
+    .put("/api/patients/changepassword", userdata)
+    .then(() => history.push("/"))
+    .then(() => alert("SUCCESSFULLY CHANGED THE PASSWORD"))
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    );
+};
+
 // Login - Get User Token
 export const loginUserPatient = userData => dispatch => {
   axios
