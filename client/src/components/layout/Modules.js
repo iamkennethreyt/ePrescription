@@ -78,6 +78,21 @@ class Modules extends Component {
             PRESCRIPTIONS
           </Link>
         ) : null}
+        {usertype === "Admin" ||
+        usertype === "Doctor" ||
+        usertype === "Pharmacist" ? (
+          <Link
+            to="/reports"
+            className={`${
+              this.props.location.pathname === "/reports" ||
+              this.props.match.path === "/reports"
+                ? "pink text-white"
+                : "pink-text"
+            } list-group-item`}
+          >
+            REPORTS
+          </Link>
+        ) : null}
 
         <Link
           to="/changepassword"

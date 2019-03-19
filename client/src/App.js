@@ -20,6 +20,8 @@ import Patient from "./components/patient/Patient";
 import DrugPrescription from "./components/drugprescription/DrugPrescription";
 import LoginPatient from "./components/auth/LoginPatient";
 import ChangePassword from "./components/accountsettings/ChangePassword";
+import Report from "./components/report/Report";
+import Print from "./components/print/Print";
 
 // Check for token
 if (localStorage.jwtToken) {
@@ -58,6 +60,10 @@ class App extends Component {
                 />
               </Switch>
               <Switch>
+                <PrivateRoute exact path="/reports" component={Report} />
+              </Switch>
+
+              <Switch>
                 <PrivateRoute
                   exact
                   path="/prescriptions"
@@ -70,6 +76,9 @@ class App extends Component {
                   path="/prescription/:id"
                   component={DrugPrescription}
                 />
+              </Switch>
+              <Switch>
+                <PrivateRoute exact path="/print/:id" component={Print} />
               </Switch>
               <Switch>
                 <PrivateRoute exact path="/drugs" component={Drug} />

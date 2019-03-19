@@ -5,8 +5,6 @@ import { addPrescription } from "../../actions/prescriptionActions";
 import { getPatients } from "../../actions/patientActions";
 import classnames from "classnames";
 
-import TextFieldGroup from "../common/TextFieldGroup";
-
 class AddPrescription extends Component {
   componentDidMount() {
     this.props.getPatients();

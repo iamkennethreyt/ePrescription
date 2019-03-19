@@ -75,11 +75,11 @@ class AddDrug extends Component {
 
     const units = [
       { label: "* Select Unit", value: 0, isSolid: true },
-      { label: "Miligram", value: "Miligram", isSolid: true },
-      { label: "Gram", value: "Gram", isSolid: true },
+      { label: "mg", value: "Miligram", isSolid: true },
+      { label: "g", value: "Gram", isSolid: true },
       { label: "* Select Unit", value: 0, isSolid: false },
-      { label: "Mililiter", value: "Mililiter", isSolid: false },
-      { label: "Liter", value: "Liter", isSolid: false }
+      { label: "ml", value: "Mililiter", isSolid: false },
+      { label: "l", value: "Liter", isSolid: false }
     ];
 
     return (

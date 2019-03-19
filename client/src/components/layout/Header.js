@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { logoutUser } from "../../actions/authActions";
 
 class Header extends Component {
   render() {
+    console.log(this.props);
     return (
       <React.Fragment>
         <title>
@@ -92,4 +93,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   { logoutUser }
-)(Header);
+)(withRouter(Header));

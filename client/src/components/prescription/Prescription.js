@@ -38,6 +38,7 @@ class Prescription extends Component {
               ) : null}
               {/* <th scope="col">Doctor's Name</th> */}
               <th scope="col">ACTION</th>
+              <th scope="col">PRINT</th>
             </tr>
           </thead>
           <tbody>
@@ -76,6 +77,14 @@ class Prescription extends Component {
                         className="btn btn-outline-danger waves-effect btn-sm"
                       >
                         Action
+                      </Link>
+                    </td>
+                    <td>
+                      <Link
+                        to={`/print/${pres._id}`}
+                        className="btn btn-outline-danger waves-effect btn-sm"
+                      >
+                        Print
                       </Link>
                     </td>
                   </tr>
