@@ -3,6 +3,7 @@ import Modules from "../layout/Modules";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { addPatient, getPatients } from "../../actions/patientActions";
+import moment from "moment";
 
 import Spinner from "../common/Spinner";
 import AddPatient from "./AddPatient";
@@ -42,7 +43,7 @@ class Patient extends Component {
                   <td>{patient.userid}</td>
                   <td>{patient.firstname + " " + patient.lastname}</td>
                   <td>{patient.gender}</td>
-                  <td>{patient.birthdate}</td>
+                  <td>{moment(patient.birthdate).format("MMMM DD, YYYY")}</td>
                   <td>{patient.bloodtype}</td>
                   <td>{patient.phonenumber}</td>
                 </tr>

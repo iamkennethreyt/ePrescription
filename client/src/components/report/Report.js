@@ -39,11 +39,13 @@ class Report extends Component {
   };
 
   render() {
-    const doctors = this.props.users.users.map((option, i) => (
-      <option key={i} value={option._id}>
-        {`${option.firstname} ${option.lastname}`}
-      </option>
-    ));
+    const doctors = this.props.users.users
+      .filter(x => x.usertype === "Doctor")
+      .map((option, i) => (
+        <option key={i} value={option._id}>
+          {`${option.firstname} ${option.lastname}`}
+        </option>
+      ));
 
     const patients = this.props.patients.patients.map((option, i) => (
       <option key={i} value={option._id}>
@@ -118,6 +120,7 @@ class Report extends Component {
                       </tr>
                     </thead>
                     <tbody>
+                      {console.log("pres.prescriptions", pres.prescriptions)}
                       {pres.prescriptions.map((dp, i) => {
                         return (
                           <tr key={i}>
@@ -210,7 +213,6 @@ class Report extends Component {
                 <label htmlFor="doctors">Doctors</label>
                 <select
                   id="doctors"
-                  className="form-control"
                   className="form-control form-control-lg"
                   name="doctor"
                   value={this.state.doctor}
@@ -225,7 +227,6 @@ class Report extends Component {
                 <label htmlFor="patients">Patients</label>
                 <select
                   id="patients"
-                  className="form-control"
                   className="form-control form-control-lg"
                   name="patient"
                   value={this.state.patient}

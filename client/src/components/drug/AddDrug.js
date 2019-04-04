@@ -75,11 +75,11 @@ class AddDrug extends Component {
 
     const units = [
       { label: "* Select Unit", value: 0, isSolid: true },
-      { label: "mg", value: "Miligram", isSolid: true },
-      { label: "g", value: "Gram", isSolid: true },
+      { label: "Miligram", value: "mg", isSolid: true },
+      { label: "Gram", value: "g", isSolid: true },
       { label: "* Select Unit", value: 0, isSolid: false },
-      { label: "ml", value: "Mililiter", isSolid: false },
-      { label: "l", value: "Liter", isSolid: false }
+      { label: "Mililiter", value: "ml", isSolid: false },
+      { label: "Liter", value: "l", isSolid: false }
     ];
 
     return (
@@ -117,6 +117,7 @@ class AddDrug extends Component {
           value={this.state.quantity}
           onChange={this.onChange}
           error={errors.quantity}
+          info="Input the quantity of drug, (eg. 250mg, 180ml)"
         />
 
         <SelectListGroup

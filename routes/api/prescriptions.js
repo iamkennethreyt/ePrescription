@@ -47,6 +47,7 @@ router.get("/", (req, res) => {
   Prescription.find()
     .populate("patient")
     .populate("doctor")
+    .populate("prescriptions.drug")
     .then(prescriptions => {
       if (!prescriptions) {
         return res.status(404).json(errors);
