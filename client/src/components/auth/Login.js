@@ -64,6 +64,7 @@ class Login extends Component {
                   value={this.state.userid}
                   onChange={this.onChange}
                   error={errors.userid}
+                  info="please use admin for the username"
                 />
 
                 <TextFieldGroup
@@ -73,6 +74,7 @@ class Login extends Component {
                   value={this.state.password}
                   onChange={this.onChange}
                   error={errors.password}
+                  info="and iamkennethreyt for the password"
                 />
                 <input type="submit" className="btn pink btn-block mt-4" />
                 <Link
@@ -81,7 +83,6 @@ class Login extends Component {
                 >
                   Login as Patient
                 </Link>
-                {/* <Sample /> */}
               </form>
             </div>
           </div>

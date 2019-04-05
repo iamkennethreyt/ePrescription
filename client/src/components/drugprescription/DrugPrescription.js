@@ -21,7 +21,7 @@ class DrugPrescription extends Component {
     this.props.getPrescription(this.props.match.params.id);
   }
   render() {
-    const { loading, prescription, prescriptions } = this.props.prescriptions;
+    const { loading, prescription } = this.props.prescriptions;
     const { patient } = this.props.prescriptions.prescription;
     let displaypatient;
     let displayTable;

@@ -39,10 +39,10 @@ Dashboard.propTypes = {
   getPatients: PropTypes.func.isRequired,
   getPrescriptions: PropTypes.func.isRequired,
   getUsers: PropTypes.func.isRequired,
-  users: PropTypes.object.isRequired,
-  drugs: PropTypes.object.isRequired,
-  patients: PropTypes.object.isRequired,
-  prescriptions: PropTypes.object.isRequired
+  users: PropTypes.array.isRequired,
+  drugs: PropTypes.array.isRequired,
+  patients: PropTypes.array.isRequired,
+  prescriptions: PropTypes.array.isRequired
 };
 
 const mapStateToProps = state => ({

@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Modules from "../layout/Modules";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
@@ -20,7 +19,7 @@ class Print extends Component {
   }
   render() {
     // console.log(this.props.prescriptions.prescription.date);
-    const { loading, prescription, prescriptions } = this.props.prescriptions;
+    const { loading, prescription } = this.props.prescriptions;
     const { patient, doctor } = this.props.prescriptions.prescription;
     let displaypatient;
     let displayTable;
@@ -85,7 +84,7 @@ class Print extends Component {
         </div>
       );
       displayTable = (
-        <table class="table table-sm table-bordered ">
+        <table className="table table-sm table-bordered ">
           <thead>
             <tr>
               <th scope="col">#</th>

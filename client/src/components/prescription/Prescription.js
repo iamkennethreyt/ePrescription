@@ -20,7 +20,6 @@ class Prescription extends Component {
   }
   render() {
     const { loading, prescriptions } = this.props.prescriptions;
-    console.log("prescriptions", prescriptions);
     let listofprescriptions;
     if (prescriptions === null || loading || prescriptions === undefined) {
       listofprescriptions = <Spinner />;

@@ -13,7 +13,15 @@ class Drug extends Component {
     displayForm: false
   };
   componentDidMount() {
+    const { usertype } = this.props.auth.user;
     this.props.getDrugs();
+    if (
+      usertype === "Patient" ||
+      usertype === "Secretary" ||
+      usertype === "Doctor"
+    ) {
+      this.props.history.push("/");
+    }
   }
   render() {
     const { loading, drugs } = this.props.drugs;
@@ -38,7 +46,6 @@ class Drug extends Component {
             </tr>
           </thead>
           <tbody>
-            {console.log("====", drugs)}
             {drugs.map((drug, i) => {
               return (
                 <tr key={i}>
@@ -47,15 +54,20 @@ class Drug extends Component {
                   <td>{drug.brand}</td>
                   <td>{drug.dosage}</td>
                   <td>
-                    <Switch
-                      type="checkbox"
-                      onClick={e => {
-                        Axios.put(`/api/drugs/changestatus/${drug._id}`, {
-                          status: e.target.checked
-                        });
-                      }}
-                      defaultChecked={drug.status}
-                    />
+                    {this.props.auth.user.usertype === "Admin" ||
+                    this.props.auth.user.usertype === "Pharmacist" ? (
+                      <Switch
+                        type="checkbox"
+                        onClick={e => {
+                          Axios.put(`/api/drugs/changestatus/${drug._id}`, {
+                            status: e.target.checked
+                          });
+                        }}
+                        defaultChecked={drug.status}
+                      />
+                    ) : (
+                      drug.status
+                    )}
                   </td>
                   <td>{`${drug.quantity} ${drug.unit}`}</td>
                   <td>{drug.storage}</td>
@@ -100,11 +112,13 @@ class Drug extends Component {
 
 Drug.propTypes = {
   getDrugs: PropTypes.func.isRequired,
-  drugs: PropTypes.object.isRequired
+  drugs: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  drugs: state.drugs
+  drugs: state.drugs,
+  auth: state.auth
 });
 
 export default connect(

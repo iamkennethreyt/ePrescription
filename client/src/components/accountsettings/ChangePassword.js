@@ -40,8 +40,6 @@ class ChangePassword extends Component {
       password3: this.state.password3
     };
 
-    // return this.props.changePasswordPatient(userData, this.props.history);
-
     if (this.props.auth.user.usertype === "Patient") {
       return this.props.changePasswordPatient(userData, this.props.history);
     } else {
@@ -50,7 +48,6 @@ class ChangePassword extends Component {
   };
 
   render() {
-    console.log(this.props.auth.user.usertype);
     const { errors } = this.state;
     return (
       <div className="row">
@@ -69,6 +66,7 @@ class ChangePassword extends Component {
                   value={this.state.password}
                   onChange={this.onChange}
                   error={errors.password}
+                  disabled={this.props.auth.user.usertype === "Admin"}
                 />
                 <TextFieldGroup
                   placeholder="New Password"
@@ -77,6 +75,7 @@ class ChangePassword extends Component {
                   value={this.state.password2}
                   onChange={this.onChange}
                   error={errors.password2}
+                  disabled={this.props.auth.user.usertype === "Admin"}
                 />
                 <TextFieldGroup
                   placeholder="Confirm Password"
@@ -85,6 +84,7 @@ class ChangePassword extends Component {
                   value={this.state.password3}
                   onChange={this.onChange}
                   error={errors.password3}
+                  disabled={this.props.auth.user.usertype === "Admin"}
                 />
                 <input type="submit" className="btn pink btn-block mt-4" />
               </form>

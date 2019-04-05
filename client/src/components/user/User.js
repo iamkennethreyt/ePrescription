@@ -13,6 +13,9 @@ class User extends Component {
   };
   componentDidMount() {
     this.props.getUsers();
+    if (this.props.auth.user.usertype === "Patient") {
+      this.props.history.push("/");
+    }
   }
   render() {
     const { loading, users } = this.props.users;
@@ -47,27 +50,28 @@ class User extends Component {
         </table>
       );
     }
-    console.log(this.props.users);
     return (
       <div className="row">
         <div className="col-md-4">
           <Modules />
         </div>
         <div className="col-md-8">
-          {this.state.displayForm ? <AddUser /> : null}
+          {this.state.displayForm && <AddUser />}
 
           <div className="d-flex justify-content-between">
             <h1>User Management</h1>
-            <button
-              className="btn btn-outline-danger waves-effect"
-              onClick={() => {
-                this.setState(prevState => ({
-                  displayForm: !prevState.displayForm
-                }));
-              }}
-            >
-              {this.state.displayForm ? "Close" : "Add"}
-            </button>
+            {this.props.auth.user.usertype === "Admin" && (
+              <button
+                className="btn btn-outline-danger waves-effect"
+                onClick={() => {
+                  this.setState(prevState => ({
+                    displayForm: !prevState.displayForm
+                  }));
+                }}
+              >
+                {this.state.displayForm ? "Close" : "Add"}
+              </button>
+            )}
           </div>
 
           {listofusers}
@@ -79,11 +83,13 @@ class User extends Component {
 
 User.propTypes = {
   getUsers: PropTypes.func.isRequired,
-  users: PropTypes.object.isRequired
+  users: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  users: state.users
+  users: state.users,
+  auth: state.auth
 });
 
 export default connect(

@@ -16,7 +16,6 @@ class Patient extends Component {
     this.props.getPatients();
   }
   render() {
-    console.log(this.props.auth.user.usertype);
     const { loading, patients } = this.props.patients;
     let listofpatients;
     if (patients === null || loading || patients === undefined) {
@@ -63,7 +62,8 @@ class Patient extends Component {
 
           <div className="d-flex justify-content-between">
             <h1>Patient Management</h1>
-            {this.props.auth.user.usertype !== "Doctor" ? (
+            {this.props.auth.user.usertype === "Admin" ||
+            this.props.auth.user.usertype === "Secretary" ? (
               <button
                 className="btn btn-outline-danger waves-effect"
                 onClick={() => {

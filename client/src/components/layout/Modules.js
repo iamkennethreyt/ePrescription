@@ -6,7 +6,6 @@ import { Link, withRouter } from "react-router-dom";
 class Modules extends Component {
   render() {
     const { usertype } = this.props.auth.user;
-    console.log("aww", this.props.match.path);
     return (
       <ul className="list-group">
         <Link
@@ -20,7 +19,7 @@ class Modules extends Component {
           HOME
         </Link>
 
-        {usertype === "Admin" ? (
+        {usertype !== "Patient" ? (
           <Link
             to="/users"
             className={`${

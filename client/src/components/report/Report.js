@@ -28,6 +28,10 @@ class Report extends Component {
     this.props.getPrescriptions();
     this.props.getPatients();
     this.props.getUsers();
+
+    if (this.props.auth.user.usertype === "Patient") {
+      this.props.history.push("/");
+    }
   }
 
   onChange = e => {
@@ -53,13 +57,12 @@ class Report extends Component {
       </option>
     ));
     const { loading, prescriptions } = this.props.prescriptions;
-    console.log(this.props.prescriptions.prescriptions);
     let listofprescriptions;
     if (prescriptions === null || loading || prescriptions === undefined) {
       listofprescriptions = <Spinner />;
     } else {
       listofprescriptions = (
-        <ul class="list-group">
+        <ul className="list-group">
           {prescriptions
             .filter(pres => {
               if (this.state.doctor === "" || this.state.doctor === 0) {
@@ -109,7 +112,7 @@ class Report extends Component {
                       {moment(pres.date).format("MMMM DD, YYYY")}
                     </small>
                   </div>
-                  <table class="table table-sm table-bordered py-0">
+                  <table className="table table-sm table-bordered py-0">
                     <thead>
                       <tr>
                         <th scope="col">#</th>
@@ -120,7 +123,6 @@ class Report extends Component {
                       </tr>
                     </thead>
                     <tbody>
-                      {console.log("pres.prescriptions", pres.prescriptions)}
                       {pres.prescriptions.map((dp, i) => {
                         return (
                           <tr key={i}>
@@ -188,7 +190,7 @@ class Report extends Component {
                 />
               </div>
               <div className="form-group col-md-6">
-                <label for="dateTo">
+                <label htmlFor="dateTo">
                   Date To (
                   <strong>
                     {moment(this.state.dateTo).format("MMM DD, YYYY")}

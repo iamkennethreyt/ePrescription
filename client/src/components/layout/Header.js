@@ -6,7 +6,6 @@ import { logoutUser } from "../../actions/authActions";
 
 class Header extends Component {
   render() {
-    console.log(this.props);
     return (
       <React.Fragment>
         <title>
