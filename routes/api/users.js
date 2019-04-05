@@ -146,18 +146,22 @@ router.post(
 
 //@route    GET api/users/
 //@access   private
-router.get("/", (req, res) => {
-  const errors = {};
-  errors.noprofile = "There are no patients yet added";
-  User.find()
-    .then(users => {
-      if (!users) {
-        return res.status(404).json(errors);
-      }
+router.get(
+  "/",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    const errors = {};
+    errors.noprofile = "There are no patients yet added";
+    User.find()
+      .then(users => {
+        if (!users) {
+          return res.status(404).json(errors);
+        }
 
-      res.json(users);
-    })
-    .catch(err => res.status(404).json(errors));
-});
+        res.json(users);
+      })
+      .catch(err => res.status(404).json(errors));
+  }
+);
 
 module.exports = router;
